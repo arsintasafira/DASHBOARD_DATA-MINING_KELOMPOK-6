@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analisis Dampak Kejadian Bencana Tahun 2025 terhadap Harga Beras Januari-Agustus 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f6f7f5;--cd:#fff;--tx:#1d2420;--mu:#6b756f;--bd:#dfe3df;--ac:#0f766e;--z:#e8ebe8;--c0:#fbe9e5;--c1:#f4cbc3;--c2:#e9a79b;--c3:#d97f6f;--c4:#bf5545;--c5:#8e3326}
+@media(prefers-color-scheme:dark){:root{--bg:#141816;--cd:#1e2421;--tx:#e8ece9;--mu:#98a39c;--bd:#2d3532;--ac:#2dd4bf;--z:#2a312d;--c0:#4a2b27;--c1:#6e3a33;--c2:#93483e;--c3:#b85b4d;--c4:#d97766;--c5:#f0a090}}
+*{box-sizing:border-box}body{margin:0;font:14px/1.45 system-ui,sans-serif;background:var(--bg);color:var(--tx);padding:16px;max-width:1280px;margin:auto}
+h1{font-size:20px;margin:0}.sub{color:var(--mu);margin:2px 0 14px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+label{font-size:12px;color:var(--mu);display:flex;flex-direction:column;gap:3px}
+select{padding:6px 8px;border:1px solid var(--bd);border-radius:6px;background:var(--cd);color:var(--tx);min-width:150px}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:12px}
+.kpi b{display:block;font-size:22px}.kpi span{font-size:12px;color:var(--mu)}
+.g{display:grid;grid-template-columns:3fr 2fr;gap:12px;margin-bottom:12px}
+@media(max-width:800px){.g{grid-template-columns:1fr}}
+h2{font-size:14px;margin:0 0 8px}
+#map{width:100%;height:auto;max-height:420px;display:block}
+#map path{stroke:var(--bg);stroke-width:.4;fill-rule:evenodd}#map path:hover{stroke:var(--tx);stroke-width:1}
+#tip{position:fixed;pointer-events:none;background:var(--tx);color:var(--bg);padding:5px 8px;border-radius:6px;font-size:12px;display:none;z-index:9}
+.ch{position:relative;height:260px}
+.sc{overflow:auto;max-height:340px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:6px 8px;text-align:right;border-bottom:1px solid var(--bd)}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}th{white-space:nowrap;position:sticky;top:0;background:var(--cd);color:var(--mu);font-weight:600}
+.n{font-size:12px;color:var(--mu);margin-top:8px}
+[hidden]{display:none!important}
+:root{--p0:#e4eff7;--p1:#bcd8ec;--p2:#8dbbdb;--p3:#5c98c6;--p4:#33729f;--p5:#16476d;--wr:#b45309;--ok:#0f766e}
+@media(prefers-color-scheme:dark){:root{--p0:#1c3243;--p1:#26516e;--p2:#3a739a;--p3:#5b97c0;--p4:#8bbde0;--p5:#bfe0f5;--wr:#fbbf24;--ok:#2dd4bf}}
+.tabs{display:flex;gap:6px;margin-bottom:14px;border-bottom:1px solid var(--bd)}
+.tabs button{font:inherit;font-weight:600;padding:9px 16px;border:0;background:none;color:var(--mu);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs button[aria-selected=true]{color:var(--tx);border-bottom-color:var(--ac)}
+.verdict{border-left:5px solid var(--wr);margin-bottom:14px;font-size:15px;line-height:1.55}
+.verdict b{font-weight:700}.verdict .big{display:block;font-size:17px;margin-top:8px;font-weight:700}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:800px){.g2,.g3{grid-template-columns:1fr}}
+.g2>*,.g3>*{min-width:0}
+.mp{width:100%;height:auto;max-height:300px;display:block}
+.mp path{stroke:var(--bg);stroke-width:.4;fill-rule:evenodd;cursor:pointer}.mp path:hover{stroke:var(--tx);stroke-width:1}
+.lg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--mu);margin-top:6px}
+.lg span{display:inline-flex;align-items:center;gap:4px}.lg i{width:12px;height:12px;border-radius:2px;display:inline-block;border:1px solid var(--bd)}
+.chh{position:relative;height:320px}
+.kpi small{display:block;font-size:11px;color:var(--mu);margin-top:2px}
+.tg{display:inline-block;padding:1px 7px;border-radius:99px;font-size:11px;font-weight:600;background:var(--z);color:var(--mu)}
+.tg.w{background:color-mix(in srgb,var(--wr) 18%,transparent);color:var(--wr)}.tg.o{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+th[data-s]{cursor:pointer;user-select:none}th[data-s]:hover{color:var(--tx)}
+tr.sel td{background:color-mix(in srgb,var(--ac) 14%,transparent)}
+#ht td:nth-child(3),#ht th:nth-child(3){text-align:left}.nt{margin:0;padding-left:18px;color:var(--mu);font-size:13px}.nt li{margin:3px 0}
+</style></head><body>
+<div class="tabs" role="tablist"><button id="tbA" role="tab" aria-selected="true">Kejadian bencana 2025</button><button id="tbB" role="tab" aria-selected="false">Bencana vs harga beras</button></div>
+<div id="tabA">
+<h1>Dashboard Kejadian Bencana</h1>
+<div class="sub">Data BNPB tahun 2025</div>
+<div class="bar">
+<label>Jenis bencana<select id="ft"></select></label>
+<label>Provinsi<select id="fp"></select></label>
+<label>Warna peta<select id="fm"></select></label>
+<label>Tingkat peta<select id="fl"><option value="kab">Kabupaten/Kota</option><option value="prov">Provinsi</option></select></label>
+</div>
+<div class="kpi" id="kpi"></div>
+<div class="g">
+<div class="card"><h2 id="mt"></h2><svg id="map"></svg></div>
+<div class="card"><h2>10 wilayah teratas</h2><div class="ch"><canvas id="c2"></canvas></div></div>
+</div>
+<div class="card" style="margin-bottom:12px"><h2>Tren bulanan (jumlah kejadian)</h2><div class="ch"><canvas id="c1"></canvas></div></div>
+<div class="card" style="margin-bottom:12px"><h2>Kejadian BNPB vs postingan Twitter per jenis bencana</h2><div class="ch"><canvas id="c3"></canvas></div><div class="n">Postingan Twitter berasal dari dataset terpisah dan hanya terisi di sebagian kabupaten/kota. Grafik ini mengikuti filter provinsi.</div></div>
+<div class="card"><h2>Peringkat wilayah (urut sesuai pilihan "Warna peta")</h2><div class="sc"><table id="tb"></table></div></div>
+</div>
+<div id="tabB" hidden>
+<h1>Analisis Dampak Kejadian Bencana Tahun 2025 terhadap Harga Beras Januari-Agustus 2026</h1>
+<div class="bar">
+<label>Provinsi<select id="hp"></select></label>
+</div>
+<div class="kpi" id="hkpi"></div>
+<div class="card" style="margin-bottom:12px"><h2>Peta Sebaran Kejadian Bencana 2025 &amp; Harga Beras 2026</h2><svg class="mp" id="mapH2" style="max-height:440px"></svg></div>
+<div>
+<div class="card" style="margin-bottom:12px"><h2>Korelasi: bencana 2025 vs harga beras 2026</h2><div class="chh" style="height:560px"><canvas id="hc1"></canvas></div></div>
+<div class="card" style="margin-bottom:12px"><h2>Tren Harga Beras 2026: Top 5 Provinsi Kejadian Bencana Tertinggi (2025)</h2><div class="chh"><canvas id="hc2"></canvas></div></div>
+</div>
+<div class="card" style="margin-bottom:12px"><h2>Jumlah Kejadian Bencana (2025) dan Pergerakan Harga Beras Nasional (2026)</h2><div class="chh"><canvas id="hc3"></canvas></div></div>
+<div class="card" style="margin-bottom:12px"><h2>Perbandingan Total Kejadian Bencana (2025) dan Rata-Rata Harga Beras (2026) per Provinsi</h2><div class="chh" style="height:380px"><canvas id="hc4"></canvas></div></div>
+<div class="card"><h2>Peringkat provinsi</h2><div class="sc"><table id="ht"></table></div></div>
+</div>
+<div id="tip"></div>
+<script>
+const D=/*DATA*/null;
+const $=s=>document.querySelector(s),fmt=n=>Math.round(n).toLocaleString('id-ID'),f1=n=>n.toLocaleString('id-ID',{maximumFractionDigits:1});
+const COL=['#0f766e','#2563eb','#d97706','#9333ea','#dc2626','#0891b2','#65a30d','#db2777','#64748b'];
+const MN=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+const ML=D.months.map(m=>{const[y,k]=m.split('-');return MN[k-1]+" '"+y.slice(2)});
+const MET={n:'Jumlah kejadian',d:'Korban meninggal',h:'Korban hilang',l:'Korban terluka',r:'Rumah rusak',t:'Rumah terendam',f:'Fasilitas umum rusak',w:'Postingan Twitter'};const IX={n:0,d:1,h:2,l:3,r:4,t:5,f:6,w:7};
+const st={t:'all',p:'all',m:'n',l:'kab'};let c1,c2,c3,drawn='';
+const opt=(el,arr)=>$(el).innerHTML=arr.map(([v,t])=>`<option value="${v}">${t}</option>`).join('');
+opt('#ft',[['all','Semua jenis'],...D.types.map((t,i)=>[i,t])]);
+opt('#fp',[['all','Seluruh Indonesia'],...Object.entries(D.prov).sort((a,b)=>a[1].localeCompare(b[1]))]);
+opt('#fm',Object.entries(MET));
+[['ft','t'],['fp','p'],['fm','m'],['fl','l']].forEach(([id,k])=>$('#'+id).onchange=e=>{st[k]=e.target.value;render()});
+const nm=k=>st.l=='kab'?(D.reg[k]?D.reg[k][0]:'(tanpa nama)'):D.prov[k];
+function val(a){return a[IX[st.m]]}
+function drawMap(){
+  if(drawn==st.l)return;drawn=st.l;
+  const P=st.l=='kab'?D.kab:D.provPath;
+  $('#map').innerHTML=Object.entries(P).map(([k,d])=>`<path data-k="${k}" data-p="${st.l=='kab'?(k/100|0):k}" d="${d}"/>`).join('');
+}
+function render(){
+  const tt=st.t=='all'?null:+st.t,pp=st.p=='all'?null:+st.p;
+  const ev=D.ev.filter(r=>(tt===null||r[1]==tt)&&(pp===null||(r[2]/100|0)==pp));
+  const tw=D.tw.filter(r=>(tt===null||r[0]==tt)&&(pp===null||(r[1]/100|0)==pp));
+  const s=i=>ev.reduce((a,r)=>a+r[i],0);
+  $('#kpi').innerHTML=[['Kejadian',ev.length],['Meninggal',s(3)],['Hilang',s(4)],['Terluka',s(5)],['Rumah rusak',s(6)],['Rumah terendam',s(7)],['Fasum rusak',s(8)],['Postingan Twitter',tw.reduce((a,r)=>a+r[2],0)]]
+   .map(([l,v])=>`<div class="card"><b>${fmt(v)}</b><span>${l}</span></div>`).join('');
+  const A={};ev.forEach(r=>{const k=st.l=='kab'?r[2]:(r[2]/100|0);const a=A[k]||(A[k]=[0,0,0,0,0,0,0,0]);a[0]++;for(let i=1;i<7;i++)a[i]+=r[i+2]});
+  tw.forEach(r=>{const k=st.l=='kab'?r[1]:(r[1]/100|0);const a=A[k]||(A[k]=[0,0,0,0,0,0,0,0]);a[7]+=r[2]});
+  drawMap();$('#mt').textContent='Peta: '+MET[st.m];
+  const rows=Object.entries(A).map(([k,a])=>[k,a,val(a,k)]).sort((x,y)=>y[2]-x[2]);
+  const V={};rows.forEach(r=>V[r[0]]=r[2]);
+  const nz=rows.map(r=>r[2]).filter(v=>v>0).sort((a,b)=>a-b),br=[1,2,3,4,5].map(i=>nz[Math.floor(nz.length*i/6)]),cl=v=>br.filter(b=>v>b).length;
+  const svg=$('#map');
+  svg.querySelectorAll('path').forEach(p=>{
+    const k=p.dataset.k,v=V[k]||0,sel=pp===null||p.dataset.p==pp;
+    p.style.fill=v>0?`var(--c${cl(v)})`:'var(--z)';p.style.opacity=sel?1:.25;
+    p.onmousemove=e=>{const t=$('#tip');t.style.display='block';t.style.left=e.clientX+12+'px';t.style.top=e.clientY+12+'px';
+      const a=A[k]||[0,0,0,0,0,0,0,0];t.innerHTML=`<b>${nm(k)}</b><br>${fmt(a[0])} kejadian<br>Meninggal ${fmt(a[1])} · Hilang ${fmt(a[2])} · Terluka ${fmt(a[3])}<br>Rumah rusak ${fmt(a[4])} · Terendam ${fmt(a[5])}<br>Fasum rusak ${fmt(a[6])}<br>Postingan Twitter ${fmt(a[7])}`};
+    p.onmouseleave=()=>$('#tip').style.display='none';
+  });
+  const sp=[...svg.querySelectorAll('path')].filter(p=>pp===null||p.dataset.p==pp);
+  if(pp===null||!sp.length)svg.setAttribute('viewBox',D.vb);
+  else{let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;sp.forEach(p=>{const b=p.getBBox();x0=Math.min(x0,b.x);y0=Math.min(y0,b.y);x1=Math.max(x1,b.x+b.width);y1=Math.max(y1,b.y+b.height)});
+    const w=x1-x0,h=y1-y0,pad=Math.max(w,h)*.08;svg.setAttribute('viewBox',`${x0-pad} ${y0-pad} ${w+2*pad} ${h+2*pad}`)}
+  const idx=m=>m, types=tt===null?D.types.map((t,i)=>i):[tt];
+  const cnt=types.map(()=>D.months.map(()=>0));ev.forEach(r=>{const j=types.indexOf(r[1]);if(j>=0)cnt[j][r[0]]++});
+  if(c1)c1.destroy();if(c2)c2.destroy();if(c3)c3.destroy();
+  const tc=getComputedStyle(document.body).color;Chart.defaults.color=tc;Chart.defaults.borderColor='rgba(128,128,128,.2)';
+  c1=new Chart($('#c1'),{type:'bar',data:{labels:ML,datasets:types.map((t,j)=>({label:D.types[t],data:cnt[j],backgroundColor:COL[t%9]}))},
+    options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true}},plugins:{legend:{labels:{boxWidth:10,font:{size:11}}}}}});
+  const evp=D.ev.filter(r=>pp===null||(r[2]/100|0)==pp),twp=D.tw.filter(r=>pp===null||(r[1]/100|0)==pp);
+  const nb=D.types.map(()=>0),nt=D.types.map(()=>0);evp.forEach(r=>nb[r[1]]++);twp.forEach(r=>nt[r[0]]+=r[2]);
+  c3=new Chart($('#c3'),{type:'bar',data:{labels:D.types,datasets:[{label:'Kejadian BNPB',data:nb,backgroundColor:'#c4573f'},{label:'Postingan Twitter',data:nt,backgroundColor:'#5b8db8'}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10,font:{size:11}}}}}});
+  const top=rows.slice(0,10);
+  c2=new Chart($('#c2'),{type:'bar',data:{labels:top.map(r=>nm(r[0])),datasets:[{label:MET[st.m],data:top.map(r=>+r[2].toFixed(1)),backgroundColor:'#c4573f'}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+  $('#tb').innerHTML='<tr><th>Wilayah</th><th>Provinsi</th><th>Kejadian</th><th>Meninggal</th><th>Hilang</th><th>Terluka</th><th>Rumah rusak</th><th>Rumah terendam</th><th>Fasum rusak</th><th>Postingan Twitter</th></tr>'+
+   rows.slice(0,50).map(([k,a])=>{const pv=st.l=='kab'?(D.reg[k]?D.prov[D.reg[k][1]]:''):'';
+    return `<tr><td>${nm(k)}</td><td>${pv||''}</td>${[0,1,2,3,4,5,6,7].map(i=>'<td>'+fmt(a[i])+'</td>').join('')}</tr>`}).join('');
+}
+render();
+/* ================= TAB B: bencana 2025 vs harga beras 2026 ================= */
+const H=D.hb||{},HK=Object.keys(H),stB={p:'all',sk:'n',sd:-1};let hch={};
+const cap=s=>s?s.charAt(0)+s.slice(1).toLowerCase():'–';
+const pname=k=>{const n=D.prov[k]||k;return n===n.toUpperCase()?n.toLowerCase().replace(/(^|\s)\S/g,c=>c.toUpperCase()):n};
+const rp=n=>n==null?'–':'Rp '+fmt(n),pcs=n=>n==null?'–':(n>0?'+':'')+f1(n)+'%',dec=n=>n.toLocaleString('id-ID',{maximumFractionDigits:3});
+const cssv=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const hmL=(D.hmonths||[]).map(m=>{const[y,k]=m.split('-');return MN[k-1]+" '"+y.slice(2)});
+const avg=a=>{const v=a.filter(x=>x!=null);return v.length?v.reduce((p,c)=>p+c,0)/v.length:null};
+const brk=vals=>{const s=vals.slice().sort((a,b)=>a-b);return [1,2,3,4,5].map(i=>s[Math.floor(s.length*i/6)])};
+const rowsB=()=>HK.map(k=>({k,nm:pname(k),n:H[k][0],md:H[k][1],rr:H[k][2],dom:H[k][3],hr:H[k][4],pc:H[k][5],ja:H[k][6],out:!!H[k][7],mo:H[k][8]}));
+const lblPlug={id:'lbl',afterDatasetsDraw(ch){
+  const c=ch.ctx,A=ch.chartArea,pts=[];
+  ch.data.datasets.forEach((ds,i)=>{if(ds.type=='line')return;ch.getDatasetMeta(i).data.forEach((el,j)=>{const d=ds.data[j];if(d&&d.nm)pts.push({x:el.x,y:el.y,nm:d.nm,sel:ds.label=='Dipilih'})})});
+  c.save();c.textBaseline='top';
+  const H=12,ov=(a,b)=>a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y,placed=[],obs=pts.map(p=>({x:p.x-6,y:p.y-6,w:12,h:12}));
+  const dens=p=>pts.filter(q=>Math.hypot(q.x-p.x,q.y-p.y)<45).length;
+  const dirs=[[1,0],[-1,0],[0,-1],[0,1],[1,-1],[1,1],[-1,-1],[-1,1]];
+  pts.slice().sort((a,b)=>dens(b)-dens(a)).forEach(p=>{
+    c.font=(p.sel?'700 ':'')+'10.5px system-ui';const w=c.measureText(p.nm).width+2;let best=null,bs=1e9;
+    for(const d of [7,15,25,38,52]){for(const [dx,dy] of dirs){
+      const r={w,h:H,x:dx>0?p.x+dx*d:dx<0?p.x+dx*d-w:p.x-w/2,y:dy>0?p.y+dy*d:dy<0?p.y+dy*d-H:p.y-H/2};
+      const out=(r.x<A.left?A.left-r.x:0)+(r.x+r.w>A.right+10?r.x+r.w-A.right-10:0)+(r.y<A.top-8?A.top-8-r.y:0)+(r.y+r.h>A.bottom?r.y+r.h-A.bottom:0);
+      const hit=placed.filter(q=>ov(r,q)).length+obs.filter(q=>ov(r,q)).length;
+      const sc=out*10+hit*1000+d;if(sc<bs){bs=sc;best={r,d}}if(!out&&!hit)break}
+      if(bs<100)break}
+    placed.push(best.r);const r=best.r;
+    if(best.d>8){c.strokeStyle=cssv('--mu');c.globalAlpha=.55;c.lineWidth=.7;c.beginPath();c.moveTo(p.x,p.y);c.lineTo(Math.max(r.x,Math.min(p.x,r.x+r.w)),Math.max(r.y,Math.min(p.y,r.y+r.h)));c.stroke();c.globalAlpha=1}
+    c.fillStyle=p.sel?cssv('--c4'):cssv('--tx');c.fillText(p.nm,r.x+1,r.y+1)});
+  c.restore()}};
+const valLab={id:'vlab',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.textAlign='center';
+  ch.data.datasets.forEach((ds,i)=>{if(!ds.vlab)return;const m=ch.getDatasetMeta(i);if(m.hidden)return;
+    c.fillStyle=ds.vlabColor||cssv('--tx');c.font='600 '+(ds.vlabSize||10)+'px system-ui';
+    c.lineJoin='round';c.lineWidth=3;c.strokeStyle=cssv('--bg');
+    m.data.forEach((el,j)=>{const v=ds.data[j];if(v==null||isNaN(v))return;const t=fmt(Math.round(v));let y=el.y-(m.type=='bar'?5:10);
+      if(ds.vlabAvoid!=null&&ds.vlabRot){const bm=ch.getDatasetMeta(ds.vlabAvoid),bd=ch.data.datasets[ds.vlabAvoid],bv=bd.data[j];
+        if(bv!=null&&bm.data[j]){const by=bm.data[j].y-5,k=Math.abs(Math.sin(ds.vlabRot)),ew=c.measureText(t).width*k+5,bw=c.measureText(fmt(Math.round(bv))).width*k+5;
+          if(y>by-bw-3&&y-ew<by+3)y=by-bw-8}}
+      if(ds.vlabRot){c.save();c.translate(el.x,y);c.rotate(ds.vlabRot);c.textAlign='left';c.strokeText(t,0,0);c.fillText(t,0,0);c.restore()}else{c.strokeText(t,el.x,y);c.fillText(t,el.x,y)}})});c.restore()}};
+function mapB(id,lg,pre,get,f,tipf,R,sel){
+  const svg=$(id);
+  if(!svg.dataset.d){svg.innerHTML=(pre=='--p'?'<defs><pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" style="fill:var(--z)"/><line x1="0" y1="0" x2="0" y2="5" style="stroke:var(--mu);stroke-width:2"/></pattern></defs>':'')+Object.entries(D.provPath).map(([k,d])=>`<path data-k="${k}" d="${d}"/>`).join('');svg.setAttribute('viewBox',D.vb);svg.dataset.d=1}
+  const M={};R.forEach(r=>M[r.k]=r);
+  const vals=R.filter(r=>get(r)!=null&&!(pre=='--p'&&r.out)&&(pre=='--p'||get(r)>0)).map(get),br=brk(vals),cl=v=>br.filter(b=>v>b).length;
+  svg.querySelectorAll('path').forEach(p=>{
+    const k=p.dataset.k,r=M[k],v=r?get(r):null;let fill='var(--z)';
+    if(r&&v!=null){if(pre=='--p'&&r.out)fill='url(#hatch)';else if(!(pre=='--c'&&v<=0))fill=`var(${pre}${cl(v)})`}
+    p.style.fill=fill;p.style.opacity=(sel===null||k==sel)?1:.3;p.style.stroke=k==sel?'var(--tx)':'';p.style.strokeWidth=k==sel?1.8:'';
+    p.onmousemove=e=>{const t=$('#tip');t.style.display='block';t.style.left=e.clientX+12+'px';t.style.top=e.clientY+12+'px';t.innerHTML=r?tipf(r):`<b>${pname(k)}</b><br>Tidak ada data`};
+    p.onmouseleave=()=>$('#tip').style.display='none';
+    p.onclick=()=>{stB.p=stB.p==k?'all':k;$('#hp').value=stB.p;renderB()};
+  });
+  let h='';for(let i=0;i<6;i++){const t=i==0?'≤ '+f(br[0]):i==5?'> '+f(br[4]):f(br[i-1])+' – '+f(br[i]);h+=`<span><i style="background:var(${pre}${i})"></i>${t}</span>`}
+  h+=pre=='--p'?'<span><i style="background:repeating-linear-gradient(45deg,var(--z) 0 3px,var(--mu) 3px 5px)"></i>Outlier</span><span><i style="background:var(--z)"></i>Tanpa data harga</span>':'<span><i style="background:var(--z)"></i>Tidak ada kejadian</span>';
+  const L=$(lg);if(L)L.innerHTML=h;
+}
+function renderB(){
+  const R=rowsB(),ok=R.filter(r=>r.hr!=null&&!r.out),sel=stB.p=='all'?null:stB.p,S=sel?R.find(r=>r.k==sel):null;
+  const byN=ok.slice().sort((a,b)=>b.n-a.n),byP=ok.slice().sort((a,b)=>b.hr-a.hr);
+  const topN=R.slice().sort((a,b)=>b.n-a.n)[0],topP=byP[0];
+  const rkN=r=>{const i=byN.indexOf(r);return i<0?null:i+1},rkP=r=>{const i=byP.indexOf(r);return i<0?null:i+1};
+  const hk=D.kor.find(x=>x[0].startsWith('Tanpa')&&x[2]=='Spearman'&&x[1].includes('harga rata'));
+  const sig=D.kor.filter(x=>x[1].includes('harga rata')).some(x=>x[5]<0.05);
+  const nat=avg(ok.map(r=>r.hr));
+  // KPI
+  const K=S?[[fmt(S.n),'Kejadian bencana 2025',pname(sel)],[rp(S.hr),'Harga beras rata-rata 2026',S.out?'outlier / diragukan':'acuan '+(S.ja||'–')],
+    [rkN(S)?'#'+rkN(S)+' dari '+ok.length:'–','Peringkat bencana','1 = terbanyak'],[rkP(S)?'#'+rkP(S)+' dari '+ok.length:'–','Peringkat harga','1 = termahal'],[pcs(S.pc),'Perubahan harga Jan→Agu 2026','']]
+   :[[fmt(R.reduce((a,r)=>a+r.n,0)),'Total bencana 2025',R.length+' provinsi'],[rp(nat),'Harga beras rata-rata 2026','rata-rata '+ok.length+' provinsi, tanpa outlier'],
+    [fmt(topN.n),'Bencana terbanyak',topN.nm],[rp(topP.hr),'Harga beras tertinggi',topP.nm]];
+  $('#hkpi').innerHTML=K.map(([v,l,s])=>`<div class="card"><b>${v}</b><span>${l}</span><small>${s}</small></div>`).join('');
+  // Kesimpulan
+  const rn=rkP(topN),rp2=rkN(topP);
+  // Peta
+  mapB('#mapH2','#lg2','--p',r=>r.hr,n=>fmt(Math.round(n/10)*10),r=>`<b>${r.nm}</b><br>Harga rata-rata ${rp(r.hr)}<br>${fmt(r.n)} kejadian bencana`+(r.hr==null?'<br>Tidak ada data harga':'')+(r.out?'<br>⚠ harga jauh di bawah provinsi lain (outlier)':''),R,sel);
+  Object.values(hch).forEach(c=>c&&c.destroy());
+  if(!window._vr){Chart.register(valLab);window._vr=1}
+  const tc=getComputedStyle(document.body).color;Chart.defaults.color=tc;Chart.defaults.borderColor='rgba(128,128,128,.2)';Chart.defaults.layout.padding={top:20};
+  const P=[0,1,2,3,4,5].map(i=>cssv('--p'+i)),C=cssv('--c4')||'#bf5545',ac=cssv('--ac');
+  // 1. scatter
+  const pt=r=>({x:r.n,y:r.hr,k:r.k,nm:r.nm,r}),good=ok.filter(r=>r.k!=sel).map(pt),outs=R.filter(r=>r.out&&r.k!=sel).map(pt),selp=S&&S.hr!=null?[pt(S)]:[];
+  const mx=ok.reduce((a,r)=>a+r.n,0)/ok.length,my=nat;let sxx=0,sxy=0;ok.forEach(r=>{sxx+=(r.n-mx)**2;sxy+=(r.n-mx)*(r.hr-my)});const sl=sxy/sxx,ic=my-sl*mx,xm=Math.max(...R.map(r=>r.n));
+  const keys=[...byN.slice(0,3),byP[0],...R.filter(r=>r.out)].map(r=>r.k).concat(sel?[sel]:[]);
+  hch.c1=new Chart($('#hc1'),{type:'scatter',plugins:[lblPlug],data:{datasets:[
+    {label:'Provinsi',data:good,backgroundColor:ac,pointRadius:5,pointHoverRadius:7},
+    ...(outs.length?[{label:'Outlier harga',data:outs,backgroundColor:'transparent',borderColor:cssv('--mu'),pointRadius:5,borderWidth:1.5}]:[]),
+    {label:'Dipilih',data:selp,backgroundColor:C,borderColor:cssv('--tx'),borderWidth:2,pointRadius:8},
+    {type:'line',label:'Tren linear',data:[{x:0,y:ic},{x:xm,y:ic+sl*xm}],borderColor:cssv('--mu'),borderDash:[6,5],borderWidth:2,pointRadius:0,fill:false}]},
+   options:{responsive:true,maintainAspectRatio:false,layout:{padding:{right:8,top:14}},plugins:{legend:{labels:{boxWidth:10,font:{size:11}}},tooltip:{callbacks:{label:c=>c.raw.nm?`${c.raw.nm}: ${fmt(c.raw.x)} kejadian, ${rp(c.raw.y)}`:''}}},
+    scales:{x:{title:{display:true,text:'Jumlah kejadian bencana 2025'},beginAtZero:true},y:{title:{display:true,text:'Harga rata-rata 2026 (Rp/kg)'},ticks:{callback:v=>fmt(v)}}}}});
+  // 2. tren bulanan harga
+  const natM=hmL.map((_,i)=>avg(ok.map(r=>r.mo[i])));
+  const ds2=[{label:'Rata-rata nasional',vlab:true,data:natM,borderColor:cssv('--tx'),borderWidth:3.5,pointRadius:3,tension:.25,spanGaps:true}];
+  const show=S?[S]:byN.filter(r=>r.mo.some(v=>v!=null)).slice(0,5);
+  show.forEach((r,i)=>ds2.push({label:r.nm,data:r.mo,borderColor:COL[(i+1)%9],borderWidth:2,pointRadius:2,tension:.25,spanGaps:true}));
+  hch.c2=new Chart($('#hc2'),{type:'line',data:{labels:hmL,datasets:ds2},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10,font:{size:11}}}},scales:{y:{ticks:{callback:v=>fmt(v)},title:{display:true,text:'Rp/kg'}}}}});
+  // 3. efek berjeda
+  const cnt=D.months.map(()=>0);D.ev.filter(r=>sel===null||(r[2]/100|0)==sel).forEach(r=>cnt[r[0]]++);
+  const pl=S?S.mo:natM,pad=n=>Array(n).fill(null);
+  hch.c3=new Chart($('#hc3'),{data:{labels:[...ML,...hmL],datasets:[
+    {type:'bar',label:'Kejadian bencana 2025',vlab:true,data:[...cnt,...pad(hmL.length)],backgroundColor:C,yAxisID:'y'},
+    {type:'line',label:'Harga beras 2026 ('+(S?S.nm:'rata-rata nasional')+')',vlab:true,vlabColor:cssv('--p4'),data:[...pad(cnt.length),...pl],borderColor:cssv('--p4'),backgroundColor:cssv('--p4'),borderWidth:3.5,pointRadius:3,tension:.25,spanGaps:true,yAxisID:'y1'}]},
+   options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10,font:{size:11}}}},scales:{y:{position:'left',beginAtZero:true,title:{display:true,text:'Kejadian / bulan'}},y1:{position:'right',grid:{drawOnChartArea:false},ticks:{callback:v=>fmt(v)},title:{display:true,text:'Harga (Rp/kg)'}}}}});
+  // 4. histogram harga + titik bencana
+  const hs=R.filter(r=>r.hr!=null).sort((a,b)=>b.hr-a.hr),hbr=brk(ok.map(r=>r.hr)),hcl=v=>hbr.filter(b=>v>b).length;
+  hch.c4=new Chart($('#hc4'),{data:{labels:hs.map(r=>r.nm),datasets:[
+    {type:'bar',label:'Jumlah bencana 2025',data:hs.map(r=>r.n),backgroundColor:C,borderColor:hs.map(r=>r.k==sel?cssv('--tx'):'transparent'),borderWidth:hs.map(r=>r.k==sel?2.5:0),yAxisID:'y',order:2},
+    {type:'line',label:'Harga beras rata-rata 2026',data:hs.map(r=>r.hr),borderColor:cssv('--p4'),borderWidth:2.5,tension:0,pointBackgroundColor:hs.map(r=>r.out?cssv('--mu'):cssv('--p4')),pointBorderColor:cssv('--bg'),pointBorderWidth:1.5,pointRadius:hs.map(r=>r.k==sel?8:5),pointBorderWidth:1.5,yAxisID:'y1',order:1}]},
+   options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10,font:{size:11}}},tooltip:{callbacks:{label:c=>c.dataset.type=='line'?'Harga: '+rp(c.raw):'Bencana: '+fmt(c.raw)+' kejadian'}}},
+    scales:{x:{ticks:{autoSkip:false,maxRotation:90,minRotation:60,font:{size:10}}},y:{beginAtZero:true,title:{display:true,text:'Kejadian bencana 2025'}},y1:{position:'right',grid:{drawOnChartArea:false},ticks:{callback:v=>fmt(v)},title:{display:true,text:'Harga (Rp/kg)'}}}}});
+  // tabel peringkat
+  const sk=stB.sk,sd=stB.sd,key={nm:r=>r.nm,n:r=>r.n,dom:r=>r.dom||'',hr:r=>r.hr==null?-1:r.hr,pc:r=>r.pc==null?-1e9:r.pc};
+  const TR=R.slice().sort((a,b)=>{const x=key[sk](a),y=key[sk](b);return (x<y?-1:x>y?1:0)*sd*(sk=='nm'||sk=='dom'?-1:1)});
+  const th=(s,t)=>`<th data-s="${s}">${t}${sk==s?(sd>0?' ▼':' ▲'):''}</th>`;
+  $('#ht').innerHTML='<tr>'+th('nm','Provinsi')+th('n','Total bencana (2025)')+th('dom','Dominasi bencana')+th('hr','Rata-rata harga (2026)')+th('pc','Perubahan Jan→Agu')+'<th>Catatan</th></tr>'+
+   TR.map(r=>`<tr class="${r.k==sel?'sel':''}"><td>${r.nm}</td><td>${fmt(r.n)}</td><td>${cap(r.dom)}</td><td>${rp(r.hr)}</td><td>${pcs(r.pc)}</td><td>${r.hr==null?'<span class="tg">tanpa data harga</span>':r.out?'<span class="tg w">outlier</span>':''}</td></tr>`).join('');
+}
+if(HK.length){
+  opt('#hp',[['all','Seluruh Indonesia'],...HK.map(k=>[k,pname(k)]).sort((a,b)=>a[1].localeCompare(b[1]))]);
+  $('#hp').onchange=e=>{stB.p=e.target.value;renderB()};
+  $('#ht').onclick=e=>{const s=e.target.closest('th[data-s]');if(!s)return;const k=s.dataset.s;if(stB.sk==k)stB.sd*=-1;else{stB.sk=k;stB.sd=-1}renderB()};
+}else $('#tbB').hidden=true;
+function showTab(b){$('#tabA').hidden=b;$('#tabB').hidden=!b;$('#tbA').setAttribute('aria-selected',!b);$('#tbB').setAttribute('aria-selected',b);if(b)renderB();else render();window.scrollTo(0,0)}
+$('#tbA').onclick=()=>showTab(false);$('#tbB').onclick=()=>showTab(true);
+if(HK.length&&location.hash!='#bencana')showTab(true); // default: langsung ke tab bencana vs harga beras (tambah #bencana di URL untuk tab lama)
+</script></body></html>
